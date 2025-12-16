@@ -1,0 +1,22 @@
+ 
+@import "tailwindcss";
+ /* Дополнительные стили для лучшей типографики */
+.prose {
+  color: #374151;
+}
+
+.prose h2 {
+  color: #111827;
+  font-weight: 700;
+  margin-top: 2.5em;
+  margin-bottom: 1em;
+}
+
+.prose p {
+  margin-bottom: 1.25em;
+  line-height: 1.7;
+}
+
+.prose-lg p {
+  font-size: 1.125rem;
+}
