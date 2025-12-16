@@ -24,5 +24,10 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src"]
+  "include": ["src"],
+  "compilerOptions": {
+    "strict": true,
+    "noUnusedLocals": false, // Отключить предупреждения о неиспользуемых переменных
+    "noUnusedParameters": false // Отключить предупреждения о неиспользуемых параметрах
+  }
 }

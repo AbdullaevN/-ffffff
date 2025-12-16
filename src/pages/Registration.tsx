@@ -11,9 +11,9 @@ export default function Registration() {
     confirmPassword: ''
   })
 
-  const [errors, setErrors] = useState({})
+  const [errors, setErrors] = useState<Record<string, string>>({})
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setFormData(prev => ({
       ...prev,
@@ -21,15 +21,16 @@ export default function Registration() {
     }))
     // Очищаем ошибку при изменении поля
     if (errors[name]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }))
+      setErrors(prev => {
+        const newErrors = { ...prev }
+        delete newErrors[name]
+        return newErrors
+      })
     }
   }
 
   const validateForm = () => {
-    const newErrors = {}
+    const newErrors: Record<string, string> = {}
     
     // Валидация email
     if (!formData.email.includes('@')) {
@@ -60,7 +61,7 @@ export default function Registration() {
     return Object.keys(newErrors).length === 0
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     
     if (validateForm()) {
@@ -108,7 +109,7 @@ export default function Registration() {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className={`w-full px-4 py-3 border  text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent ${
+                className={`w-full px-4 py-3 border rounded-xs text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent ${
                   errors.name ? 'border-red-500' : 'border-gray-300'
                 }`}
                 placeholder="Your name"
@@ -128,7 +129,7 @@ export default function Registration() {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className={`w-full px-4 py-3 border  text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent ${
+                className={`w-full px-4 py-3 border rounded-xs text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent ${
                   errors.email ? 'border-red-500' : 'border-gray-300'
                 }`}
                 placeholder="your.email@example.com"
@@ -148,7 +149,7 @@ export default function Registration() {
                 value={formData.phone}
                 onChange={handleChange}
                 required
-                className={`w-full px-4 py-3 border  text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent ${
+                className={`w-full px-4 py-3 border rounded-xs text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent ${
                   errors.phone ? 'border-red-500' : 'border-gray-300'
                 }`}
                 placeholder="0501113371"
@@ -168,7 +169,7 @@ export default function Registration() {
                 value={formData.password}
                 onChange={handleChange}
                 required
-                className={`w-full px-4 py-3 border  text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent ${
+                className={`w-full px-4 py-3 border rounded-xs text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent ${
                   errors.password ? 'border-red-500' : 'border-gray-300'
                 }`}
                 placeholder="Enter password"
@@ -188,7 +189,7 @@ export default function Registration() {
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 required
-                className={`w-full px-4 py-3 border  text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent ${
+                className={`w-full px-4 py-3 border rounded-xs text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent ${
                   errors.confirmPassword ? 'border-red-500' : 'border-gray-300'
                 }`}
                 placeholder="Confirm password"
@@ -203,7 +204,7 @@ export default function Registration() {
           <div className="flex flex-col sm:flex-row gap-3 pt-4">
             <button
               type="submit"
-              className="flex items-center justify-center bg-black text-white px-6 py-3 text-sm font-medium uppercase tracking-wide hover:bg-gray-800 transition-colors  flex-1"
+              className="flex items-center justify-center bg-black text-white px-6 py-3 text-sm font-medium uppercase tracking-wide hover:bg-gray-800 transition-colors rounded-xs flex-1"
             >
               <Send className="w-4 h-4 mr-2" />
               Register
@@ -212,7 +213,7 @@ export default function Registration() {
             <button
               type="button"
               onClick={handleClear}
-              className="flex items-center justify-center bg-gray-200 text-gray-800 px-6 py-3 text-sm font-medium uppercase tracking-wide hover:bg-gray-300 transition-colors  flex-1"
+              className="flex items-center justify-center bg-gray-200 text-gray-800 px-6 py-3 text-sm font-medium uppercase tracking-wide hover:bg-gray-300 transition-colors rounded-xs flex-1"
             >
               <X className="w-4 h-4 mr-2" />
               Clear
@@ -224,7 +225,7 @@ export default function Registration() {
             <button
               type="button"
               onClick={handleGoogleLogin}
-              className="flex items-center justify-center w-full border border-gray-300 text-gray-800 px-6 py-3 text-sm font-medium uppercase tracking-wide hover:bg-gray-50 transition-colors "
+              className="flex items-center justify-center w-full border border-gray-300 text-gray-800 px-6 py-3 text-sm font-medium uppercase tracking-wide hover:bg-gray-50 transition-colors rounded-xs"
             >
               <svg className="w-5 h-5 mr-3" viewBox="0 0 24 24">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -242,7 +243,7 @@ export default function Registration() {
             <Link to='/login'>
               <button
                 type="button"
-                className="flex items-center justify-center w-full bg-white border border-gray-300 text-gray-800 px-6 py-3 text-sm font-medium uppercase tracking-wide hover:bg-gray-50 transition-colors "
+                className="flex items-center justify-center w-full bg-white border border-gray-300 text-gray-800 px-6 py-3 text-sm font-medium uppercase tracking-wide hover:bg-gray-50 transition-colors rounded-xs"
               >
                 <LogIn className="w-4 h-4 mr-2" />
                 Login

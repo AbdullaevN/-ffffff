@@ -1,15 +1,13 @@
-// src/components/product/ProductGrid.tsx
-import React from 'react';
 import ProductCard from './ProductCard';
 import { products } from '../../data/products';
 
+// Интерфейс уже правильный
 interface ProductGridProps {
   viewMode?: 'grid' | 'list';
   limit?: number;
 }
 
 const ProductGrid: React.FC<ProductGridProps> = ({ viewMode = 'grid', limit }) => {
-  // Проверяем, существуют ли данные
   if (!products || !Array.isArray(products)) {
     return (
       <div className="text-center py-12">
@@ -20,7 +18,6 @@ const ProductGrid: React.FC<ProductGridProps> = ({ viewMode = 'grid', limit }) =
 
   const displayProducts = limit ? products.slice(0, limit) : products;
 
-  // Проверяем, есть ли товары для отображения
   if (displayProducts.length === 0) {
     return (
       <div className="text-center py-12">
@@ -29,7 +26,6 @@ const ProductGrid: React.FC<ProductGridProps> = ({ viewMode = 'grid', limit }) =
     );
   }
 
-  // Для режима списка
   if (viewMode === 'list') {
     return (
       <div className="space-y-6">

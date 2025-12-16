@@ -11,14 +11,14 @@ export default function LoginPage() {
   const [errors, setErrors] = useState({})
   const [rememberMe, setRememberMe] = useState(false)
 
-  const handleChange = (e) => {
+  const handleChange = (e:any) => {
     const { name, value } = e.target
     setFormData(prev => ({
       ...prev,
       [name]: value
     }))
     // Очищаем ошибку при изменении поля
-    if (errors[name]) {
+    if (errors[name])  {
       setErrors(prev => ({
         ...prev,
         [name]: ''

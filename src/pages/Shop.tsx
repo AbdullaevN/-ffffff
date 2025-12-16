@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ProductGrid from '../components/product/ProductGrid';
 import { 
   Filter, 
@@ -8,7 +8,6 @@ import {
   SlidersHorizontal,
   Grid2X2,
   List,
-  Star,
   Sparkles,
   TrendingUp 
 } from 'lucide-react';
@@ -20,7 +19,10 @@ const Shop = () => {
   const [priceRange, setPriceRange] = useState([20, 80]);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState('popular');
-  const [viewMode, setViewMode] = useState('grid');
+  
+  // ИСПРАВЛЕНО: Указан конкретный тип для viewMode
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  
   const [expandedSections, setExpandedSections] = useState({
     categories: true,
     price: true,
@@ -38,13 +40,6 @@ const Shop = () => {
   ];
 
   const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
-  const materials = [
-    'Organic Cotton',
-    'Premium Cotton',
-    'Cotton Blend',
-    'Linen',
-    'Recycled Materials'
-  ];
 
   const sortOptions = [
     { value: 'popular', label: 'Most Popular' },
@@ -96,16 +91,6 @@ const Shop = () => {
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-6">
             <div>
               <h1 className="text-4xl md:text-5xl font-light tracking-tight mb-2">Shop Collection</h1>
-              {/* <div className="flex items-center gap-4 text-gray-500 text-sm">
-                <span className="flex items-center gap-1">
-                  <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                  <span>4.8 (124 reviews)</span>
-                </span>
-                <span>•</span>
-                <span>Free shipping over $50</span>
-                <span>•</span>
-                <span>24/7 support</span>
-              </div> */}
             </div>
             
             <div className="mt-4 md:mt-0">
@@ -372,6 +357,7 @@ const Shop = () => {
             </div>
             
             {/* Сетка товаров */}
+            {/* ИСПРАВЛЕНО: Теперь viewMode имеет правильный тип */}
             <ProductGrid viewMode={viewMode} />
             
             {/* Пагинация (пример) */}

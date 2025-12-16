@@ -1,5 +1,5 @@
 // Создайте файл src/context/CartContext.tsx (если еще нет)
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, type ReactNode } from 'react';
 
 interface CartItem {
   id: number;
