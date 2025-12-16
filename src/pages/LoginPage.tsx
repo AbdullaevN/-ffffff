@@ -1,5 +1,5 @@
 import { LogIn, Send, X, KeyRound, Mail } from 'lucide-react'
-import React, { useState } from 'react'
+import { useState, ChangeEvent, FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 
 export default function LoginPage() {
@@ -8,26 +8,27 @@ export default function LoginPage() {
     password: ''
   })
 
-  const [errors, setErrors] = useState({})
+  const [errors, setErrors] = useState<Record<string, string>>({})
   const [rememberMe, setRememberMe] = useState(false)
 
-  const handleChange = (e:any) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setFormData(prev => ({
       ...prev,
       [name]: value
     }))
     // Очищаем ошибку при изменении поля
-    if (errors[name])  {
-      setErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }))
+    if (errors[name]) {
+      setErrors(prev => {
+        const newErrors = { ...prev }
+        delete newErrors[name]
+        return newErrors
+      })
     }
   }
 
   const validateForm = () => {
-    const newErrors = {}
+    const newErrors: Record<string, string> = {}
     
     // Валидация email
     if (!formData.email.includes('@')) {
@@ -45,7 +46,7 @@ export default function LoginPage() {
     return Object.keys(newErrors).length === 0
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     
     if (validateForm()) {
@@ -97,7 +98,7 @@ export default function LoginPage() {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className={`w-full pl-10 pr-4 py-3 border  text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent ${
+                  className={`w-full pl-10 pr-4 py-3 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent ${
                     errors.email ? 'border-red-500' : 'border-gray-300'
                   }`}
                   placeholder="your.email@example.com"
@@ -120,7 +121,7 @@ export default function LoginPage() {
                   value={formData.password}
                   onChange={handleChange}
                   required
-                  className={`w-full pl-10 pr-4 py-3 border  text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent ${
+                  className={`w-full pl-10 pr-4 py-3 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent ${
                     errors.password ? 'border-red-500' : 'border-gray-300'
                   }`}
                   placeholder="Enter your password"
@@ -157,7 +158,7 @@ export default function LoginPage() {
           <div className="flex flex-col sm:flex-row gap-3 pt-4">
             <button
               type="submit"
-              className="flex items-center justify-center bg-black text-white px-6 py-3 text-sm font-medium uppercase tracking-wide hover:bg-gray-800 transition-colors  flex-1"
+              className="flex items-center justify-center bg-black text-white px-6 py-3 text-sm font-medium uppercase tracking-wide hover:bg-gray-800 transition-colors rounded-lg flex-1"
             >
               <LogIn className="w-4 h-4 mr-2" />
               Login
@@ -166,7 +167,7 @@ export default function LoginPage() {
             <button
               type="button"
               onClick={handleClear}
-              className="flex items-center justify-center bg-gray-200 text-gray-800 px-6 py-3 text-sm font-medium uppercase tracking-wide hover:bg-gray-300 transition-colors  flex-1"
+              className="flex items-center justify-center bg-gray-200 text-gray-800 px-6 py-3 text-sm font-medium uppercase tracking-wide hover:bg-gray-300 transition-colors rounded-lg flex-1"
             >
               <X className="w-4 h-4 mr-2" />
               Clear
@@ -178,7 +179,7 @@ export default function LoginPage() {
             <button
               type="button"
               onClick={handleGoogleLogin}
-              className="flex items-center justify-center w-full border border-gray-300 text-gray-800 px-6 py-3 text-sm font-medium uppercase tracking-wide hover:bg-gray-50 transition-colors "
+              className="flex items-center justify-center w-full border border-gray-300 text-gray-800 px-6 py-3 text-sm font-medium uppercase tracking-wide hover:bg-gray-50 transition-colors rounded-lg"
             >
               <svg className="w-5 h-5 mr-3" viewBox="0 0 24 24">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -190,23 +191,13 @@ export default function LoginPage() {
             </button>
           </div>
 
-          {/* Разделитель */}
-          {/* <div className="relative pt-4">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300"></div>
-            </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-gray-500">Or continue with</span>
-            </div>
-          </div> */}
-
           {/* Регистрация */}
-          <div className="  border-gray-200 text-center">
+          <div className="pt-6 border-t border-gray-200 text-center">
             <p className="text-gray-600 mb-4">Don't have an account?</p>
             <Link to='/registration'>
               <button
                 type="button"
-                className="flex items-center justify-center w-full bg-white border border-gray-300 text-gray-800 px-6 py-3 text-sm font-medium uppercase tracking-wide hover:bg-gray-50 transition-colors "
+                className="flex items-center justify-center w-full bg-white border border-gray-300 text-gray-800 px-6 py-3 text-sm font-medium uppercase tracking-wide hover:bg-gray-50 transition-colors rounded-lg"
               >
                 <Send className="w-4 h-4 mr-2" />
                 Create Account
@@ -215,7 +206,7 @@ export default function LoginPage() {
           </div>
 
           {/* Примечание об обязательных полях */}
-          <div className="">
+          <div className="pt-4">
             <p className="text-sm text-gray-500 text-center">
               <span className="text-red-500">*</span> Required Fields
             </p>

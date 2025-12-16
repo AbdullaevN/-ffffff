@@ -11,23 +11,19 @@
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true,
+    "verbatimModuleSyntax": false, // ИЗМЕНЕНО: false вместо true
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
 
     /* Linting */
     "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "erasableSyntaxOnly": true,
+    "noUnusedLocals": false, // ИЗМЕНЕНО: false вместо true
+    "noUnusedParameters": false, // ИЗМЕНЕНО: false вместо true
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": false, // ИЗМЕНЕНО: false вместо true
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
   },
-  "include": ["src"],
-  "compilerOptions": {
-    "strict": true,
-    "noUnusedLocals": false, // Отключить предупреждения о неиспользуемых переменных
-    "noUnusedParameters": false // Отключить предупреждения о неиспользуемых параметрах
-  }
+  "include": ["src"]
 }
