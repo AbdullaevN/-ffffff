@@ -96,11 +96,11 @@ const Test = () => {
             </div>
             
             {/* Корзина с SVG иконкой */}
-            <Link to="/cart" className="relative">
+            {/* <Link to="/cart" className="relative">
               <div className="w-6 h-6 flex items-center justify-center">
                 <CartIcon />
               </div>
-            </Link>
+            </Link> */}
 
                <Link to="/cart" className="relative">
       <ShoppingBag className="w-6 h-6" />
